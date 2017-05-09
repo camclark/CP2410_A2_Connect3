@@ -44,31 +44,50 @@ class Connect3Board:
         """ Returns None if the game is not complete, DRAW if no more moves can be played and there is no winner,
         or the token (O or #) that has won the game by making three-in-a-row horizontally, vertically, or diagonally."""
 
-        # cam pls
-
-        print(self._rows, "I AM THE ROWS")
-        print(self._cols, "I AM THE COLS")
-
-        # Check rows for winner (bottom-left to top-right)
+        # Check rows for winner
         for row in range(self._rows):
             for col in range(self._cols):
                 if col + 2 < self._cols and self._board[row][col] is not None:
                     if self._board[row][col] == self._board[row][col + 1] == self._board[row][col + 2]:
                         return self._board[row][col]
 
-        # Check columns for winner (bottom-left to top-right) broke
+        # Check columns for winner
         for col in range(self._cols):
             for row in range(self._rows):
                 if row + 2 < self._rows and self._board[row][col] is not None:
                     if self._board[row][col] == self._board[row + 1][col] == self._board[row + 2][col]:
                         return self._board[row][col]
 
-        # # Check diagonal for winner (bottom-left to top-right) broke
+        # Check diagonal for winner (top-left to bottom-right)
+        for row in range(self._rows):
+            for col in range(self._cols):
+                if row + 2 < self._rows and col + 2 < self._cols:
+                    if self._board[row][col] is not None:
+                        print("checking", self._board[row][col], 2)
+                        if self._board[row][col] == self._board[row + 1][col + 1] == self._board[row + 2][col + 2]:
+                            return self._board[row][col]
+
+        # Check diagonal for winner (top left to bottom left)
+        for row in range(self._rows):
+            for col in range(self._cols):
+                if row - 2 < self._rows and col + 2 < self._cols:
+                    if self._board[row][col] is not None:
+                        print("checking", self._board[row][col], 2)
+                        if self._board[row][col] == self._board[row - 1][col + 1] == self._board[row - 2][col + 2]:
+                            print("ayy biccch")
+                            return self._board[row][col]
+        #
+        # # Check diagonal for winner
         # for row in range(self._rows):
         #     for col in range(self._cols):
-        #         if row + 2 < self._rows and col + 2 < self._cols and self._board[row][col] is not None:
-        #             if self._board[row][col] == self._board[row + 1][col + 1] == self._board[row + 2][col + 2]:
-        #                 return self._board[row][col]
+        #         if row + 2 < self._rows and col + 2 < self._cols:
+        #             if self._board[row][col] is not None:
+        #                 print("checking", self._board[row][col], 2)
+        #                 if self._board[row][col] == self._board[row - 1][col + 1] == \
+        #                         self._board[row - 2][col + 2]:
+        #                     print("ayy biccch")
+        #                     return self._board[row][col]
+
 
         # # this only works correctly for 3*3, you will need to implement a solution that works for larger
         # # sized boards
