@@ -12,11 +12,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="450">
-      <file leaf-file-name="playgame.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="playgame.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/playgame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="650">
-              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+            <state relative-caret-position="550">
+              <caret line="60" column="8" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
               <folding>
                 <element signature="e#200#239#0" expanded="true" />
               </folding>
@@ -34,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="connect3board.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="connect3board.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/connect3board.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1475">
-              <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
+            <state relative-caret-position="850">
+              <caret line="46" column="102" lean-forward="true" selection-start-line="46" selection-start-column="102" selection-end-line="46" selection-end-column="102" />
               <folding />
             </state>
           </provider>
@@ -295,14 +295,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/connect3board.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1475">
-          <caret line="86" column="20" lean-forward="true" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gametree.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
@@ -313,11 +305,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/playgame.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="650">
-          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="550">
+          <caret line="60" column="8" lean-forward="true" selection-start-line="60" selection-start-column="8" selection-end-line="60" selection-end-column="8" />
           <folding>
             <element signature="e#200#239#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/connect3board.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="46" column="102" lean-forward="true" selection-start-line="46" selection-start-column="102" selection-end-line="46" selection-end-column="102" />
+          <folding />
         </state>
       </provider>
     </entry>

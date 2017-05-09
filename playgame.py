@@ -21,15 +21,29 @@ def main():
         mode = get_mode()
 
 
+def get_int_between(prompt, low, high):
+    while True:
+        try:
+            num = int(input(prompt))
+            if low <= num <= high:
+                return num
+            else:
+                print("Value must be between {} and {} inclusive".format(low, high))
+        except ValueError:
+            pass
+
+
 def run_two_player_mode():
 
-    cols = int(input("Please select number of columns"))
-    rows = int(input("Please select number of rows"))
+    cols = get_int_between("Please select number of columns (Min: 3  Max:7)", 3, 7)
+    rows = get_int_between("Please select number of rows (Min: 3  Max:7)", 3, 7)
+
     game = Connect3Board(cols, rows)
     print(game)
 
     while game.get_winner() is None:
-        move = int(input("Player {} please enter a column to drop a piece".format(game.get_whose_turn())))
+        move = get_int_between("Player {} please enter a column to drop a piece".format(game.get_whose_turn()), 0, cols - 1)
+
         if game.can_add_token_to_column(move) is True:
             game.add_token(move)
             print(game)
