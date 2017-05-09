@@ -44,6 +44,8 @@ def run_two_player_mode():
     while game.get_winner() is None:
         move = get_int_between("Player {} please enter a column to drop a piece".format(game.get_whose_turn()), 0, cols - 1)
 
+        # print(game._board[0][0])
+
         if game.can_add_token_to_column(move) is True:
             game.add_token(move)
             print(game)
