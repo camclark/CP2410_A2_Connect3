@@ -3,7 +3,7 @@
 Contains the definition of the Connect3Board class.
 This file forms part of the assessment for CP2410 Assignment 2
 
-************** ENTER YOUR NAME HERE ****************************
+************** Cameron Clark ****************************
 
 """
 
@@ -64,6 +64,7 @@ class Connect3Board:
                 return self._board[0][2]
         else:
             # implement your solution here
+            pass
             pass
 
         # no winner discovered, so check for draw or otherwise return None

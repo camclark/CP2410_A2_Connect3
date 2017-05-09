@@ -11,7 +11,7 @@ from gametree import GameTree
 
 
 def main():
-    print('Welcome to Connect 3 by YOUR NAME HERE')
+    print('Welcome to Connect 3 by Cameron Clark')
     mode = get_mode()
     while mode != 'Q':
         if mode == 'A':
@@ -22,8 +22,24 @@ def main():
 
 
 def run_two_player_mode():
-    # for you to complete...
-    pass
+
+    cols = int(input("Please select number of columns"))
+    rows = int(input("Please select number of rows"))
+    game = Connect3Board(cols, rows)
+    print(game)
+
+    while game.get_winner() is None:
+        move = int(input("Player {} please enter a column to drop a piece".format(game.get_whose_turn())))
+        if game.can_add_token_to_column(move) is True:
+            game.add_token(move)
+            print(game)
+        else:
+            print("ERROR: Invalid move for {}, please try again".format(game.get_whose_turn()))
+
+    print("++++++++-------------------------------------------------------------++++++++")
+    print("pizza party for {},  you win". format(game.get_winner()))
+    print("++++++++-------------------------------------------------------------++++++++")
+    # pass
 
 
 def run_ai_mode():
