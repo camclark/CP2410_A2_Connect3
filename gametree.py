@@ -27,6 +27,29 @@ class GameTree:
             # for you to complete...
 
         def _create_children(self):
+            token = Connect3Board.TOKENS[Connect3Board._turn_number % 2]
+
+            for col in Connect3Board._cols:
+                if Connect3Board._board[0][col] is None:
+                    for row in range(Connect3Board._rows - 1, -1, -1):
+                        if Connect3Board._board[row][col] is None:
+                            Connect3Board._board[row][col] = token
+                            Connect3Board._turn_number += 1
+                            GameTree._Node._create_children()
+
+
+            # token = Connect3Board.TOKENS[Connect3Board._turn_number % 2]
+            # board = GameTree._Node._gameboard
+            # for col in board._cols:
+            #     if board[0][col] is None:
+            #         for row in range(board._rows - 1, -1, -1):
+            #             if board[row][col] is None:
+            #                 board[row][col] = token
+            #                 Connect3Board._turn_number += 1
+            #                 GameTree._Node._create_children()
+
+
+
             # for you to complete...
             pass
 
