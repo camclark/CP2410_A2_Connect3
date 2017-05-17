@@ -3,7 +3,7 @@
 Contains the definition of the GameTree class.
 This file forms part of the assessment for CP2410 Assignment 2
 
-************** ENTER YOUR NAME HERE ****************************
+************** Cameron Clark ****************************
 
 """
 from connect3board import Connect3Board
@@ -18,43 +18,47 @@ class GameTree:
 
     # noinspection PyProtectedMember
     class _Node:
-        __slots__ = '_gameboard', '_children', '_score'
+        __slots__ = '_gameboard', '_children', '_score', '_depth_limit'
+        # depth limit in slots
 
         def __init__(self, gameboard: Connect3Board):
             self._gameboard = gameboard
             self._children = [None] * self._gameboard.get_columns()
 
-            # for you to complete...
+            if self._gameboard.get_winner() is None:
+                # is this right?
+                GameTree._Node._children = GameTree._Node._children._create_children()
+            elif self._gameboard.get_winner() == gameboard.DRAW:
+                self._score = GameTree.DRAW_SCORE
+            elif self._gameboard.get_winner() == GameTree.MAX_PLAYER:
+                self._score = GameTree.MAX_WIN_SCORE
+            elif self._gameboard.get_winner() == GameTree.MIN_WIN_SCORE:
+                self._score = GameTree.MIN_WIN_SCORE
 
         def _create_children(self):
-            token = Connect3Board.TOKENS[Connect3Board._turn_number % 2]
+            # use if can add to column
+            #   if cannot move to next
 
-            for col in Connect3Board._cols:
-                if Connect3Board._board[0][col] is None:
-                    for row in range(Connect3Board._rows - 1, -1, -1):
-                        if Connect3Board._board[row][col] is None:
-                            Connect3Board._board[row][col] = token
-                            Connect3Board._turn_number += 1
-                            GameTree._Node._create_children()
+            for col in self._gameboard._cols:
+                # below: from modified function: "can_add_token_to_column(self, column)"
+                if 0 <= col  < self._gameboard._cols and self._gameboard._board[0][col] is None:
+                    # below: from modified function "add_token(self, column)"
+                    assert 0 <= col < self._gameboard._cols
+                    token = self._gameboard.TOKENS[self._gameboard._turn_number % 2]
+                    if self._gameboard._board[0][col] is None:
+                        for row in range(self._gameboard._rows - 1, -1, -1):
+                            if self._gameboard._board[row][col] is None:
+                                self._gameboard._board[row][col] = token
+                                self._gameboard._turn_number =+ 1
 
+                                # DO i want to init a new node here?
 
-            # token = Connect3Board.TOKENS[Connect3Board._turn_number % 2]
-            # board = GameTree._Node._gameboard
-            # for col in board._cols:
-            #     if board[0][col] is None:
-            #         for row in range(board._rows - 1, -1, -1):
-            #             if board[row][col] is None:
-            #                 board[row][col] = token
-            #                 Connect3Board._turn_number += 1
-            #                 GameTree._Node._create_children()
-
-
-
-            # for you to complete...
             pass
 
         def _compute_score(self):
             # for you to complete...
+
+            # use this for score from up in init
             pass
 
     class _Position:

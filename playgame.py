@@ -3,7 +3,7 @@
 Contains the Connect 3 game playing application.
 This file forms part of the assessment for CP2410 Assignment 2
 
-************** ENTER YOUR NAME HERE ****************************
+************** Cameron Clark ****************************
 
 """
 from connect3board import Connect3Board
@@ -53,7 +53,7 @@ def run_two_player_mode():
             print("ERROR: Invalid move for {}, please try again".format(game.get_whose_turn()))
 
     print("++++++++-------------------------------------------------------------++++++++")
-    print("pizza party for {},  you win". format(game.get_winner()))
+    print("pizza party for {},  they're the winner". format(game.get_winner()))
     print("++++++++-------------------------------------------------------------++++++++")
     # pass
 
