@@ -24,6 +24,8 @@ class GameTree:
         def __init__(self, gameboard: Connect3Board):
             self._gameboard = gameboard
             self._children = [None] * self._gameboard.get_columns()
+            # Where to put check for depth limit?
+            self._depth_limit = self._gameboard.get_columns() * self._gameboard.get_rows()
 
             if self._gameboard.get_winner() is None:
                 # is this right?
@@ -38,10 +40,9 @@ class GameTree:
         def _create_children(self):
             # use if can add to column
             #   if cannot move to next
-
             for col in self._gameboard._cols:
                 # below: from modified function: "can_add_token_to_column(self, column)"
-                if 0 <= col  < self._gameboard._cols and self._gameboard._board[0][col] is None:
+                if 0 <= col < self._gameboard._cols and self._gameboard._board[0][col] is None:
                     # below: from modified function "add_token(self, column)"
                     assert 0 <= col < self._gameboard._cols
                     token = self._gameboard.TOKENS[self._gameboard._turn_number % 2]
@@ -51,15 +52,14 @@ class GameTree:
                                 self._gameboard._board[row][col] = token
                                 self._gameboard._turn_number =+ 1
 
-                                # DO i want to init a new node here?
+                                # Is this how I init a new child?
+                                self._children[col] = GameTree._Node
 
             pass
 
         def _compute_score(self):
-            # for you to complete...
-
-            # use this for score from up in init
-            pass
+            """ Return the score of a node"""
+            return self._score
 
     class _Position:
         def __init__(self, node):

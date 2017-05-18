@@ -42,26 +42,48 @@ def run_two_player_mode():
     print(game)
 
     while game.get_winner() is None:
-        move = get_int_between("Player {} please enter a column to drop a piece".format(game.get_whose_turn()), 0, cols - 1)
-
-        # print(game._board[0][0])
+        move = get_int_between("Player {}'s turn. Choose column (0 to {})".format(game.get_whose_turn(), cols - 1), 0, cols - 1)
 
         if game.can_add_token_to_column(move) is True:
             game.add_token(move)
             print(game)
         else:
-            print("ERROR: Invalid move for {}, please try again".format(game.get_whose_turn()))
+            print("That column is not available. Please choose again.")
 
-    print("++++++++-------------------------------------------------------------++++++++")
-    print("pizza party for {},  they're the winner". format(game.get_winner()))
-    print("++++++++-------------------------------------------------------------++++++++")
-    # pass
+    if game.get_winner() == Connect3Board.DRAW:
+        print("This game has ended in a draw!")
+    else:
+        print("Player {} wins!". format(game.get_winner()))
 
 
 def run_ai_mode():
-    # for you to complete...
-    pass
+    player = piece_selection()
 
+    cols = 3
+    rows = 3
+    game = Connect3Board(cols, rows)
+    print(game)
+
+    while game.get_winner() is None:
+        token = game.TOKENS[game._turn_number % 2]
+        if token == player:
+            #player moves
+            move = get_int_between("Your turn. Choose column (0 to 2): ", 0, cols - 1)
+
+            if game.can_add_token_to_column(move) is True:
+                game.add_token(move)
+                print(game)
+            else:
+                print("ERROR: Invalid move, please try again")
+        # else:
+        #     #AI moves
+        #     #TODO: Add AI
+        #     # print("beep boop :(")
+
+    if game.get_winner() == Connect3Board.DRAW:
+        print("This game has ended in a draw!")
+    else:
+        print("Player {} wins!". format(game.get_winner()))
 
 def get_mode():
     mode = input("A. Two-player mode\nB. Play against AI\nQ. Quit\n>>> ")
@@ -70,16 +92,28 @@ def get_mode():
     return mode[0].upper()
 
 
-def get_int(prompt):
-    result = 0
+def piece_selection():
+    result = None
     finished = False
     while not finished:
-        try:
-            result = int(input(prompt))
+        result = input("Will you play as O or #? ").upper()
+        if result == "O" or result == "#":
             finished = True
-        except ValueError:
-            print("Please enter a valid integer.")
+        else:
+            print("ERROR: Please enter O or #")
     return result
+
+
+# def get_int(prompt):
+#     result = 0
+#     finished = False
+#     while not finished:
+#         try:
+#             result = int(input(prompt))
+#             finished = True
+#         except ValueError:
+#             print("Please enter a valid integer.")
+#     return result
 
 
 if __name__ == '__main__':
