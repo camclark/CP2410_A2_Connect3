@@ -16,10 +16,9 @@ class GameTree:
     MIN_WIN_SCORE = -1
     DRAW_SCORE = 0
 
-    # noinspection PyProtectedMember
     class _Node:
         __slots__ = '_gameboard', '_children', '_score', '_depth_limit'
-        # depth limit in slots
+        # depth limit in slots?
 
         def __init__(self, gameboard: Connect3Board):
             self._gameboard = gameboard
@@ -38,24 +37,12 @@ class GameTree:
                 self._score = GameTree.MIN_WIN_SCORE
 
         def _create_children(self):
-            # use if can add to column
-            #   if cannot move to next
             for col in self._gameboard._cols:
-                # below: from modified function: "can_add_token_to_column(self, column)"
-                if 0 <= col < self._gameboard._cols and self._gameboard._board[0][col] is None:
-                    # below: from modified function "add_token(self, column)"
-                    assert 0 <= col < self._gameboard._cols
-                    token = self._gameboard.TOKENS[self._gameboard._turn_number % 2]
-                    if self._gameboard._board[0][col] is None:
-                        for row in range(self._gameboard._rows - 1, -1, -1):
-                            if self._gameboard._board[row][col] is None:
-                                self._gameboard._board[row][col] = token
-                                self._gameboard._turn_number =+ 1
+                board_copy = self._gameboard.make_copy()
 
-                                # Is this how I init a new child?
-                                self._children[col] = GameTree._Node
-
-            pass
+                if self._gameboard.can_add_token_to_column(col):
+                    board_copy.add_token(col)
+                    self._children[col] = GameTree._Node(board_copy)
 
         def _compute_score(self):
             """ Return the score of a node"""

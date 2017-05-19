@@ -1,1 +1,2 @@
-print("#".upper())
+scores = [2, 4, 5]
+

@@ -34,7 +34,6 @@ def get_int_between(prompt, low, high):
 
 
 def run_two_player_mode():
-
     cols = get_int_between("Please select number of columns (Min: 3  Max:7)", 3, 7)
     rows = get_int_between("Please select number of rows (Min: 3  Max:7)", 3, 7)
 
@@ -42,7 +41,8 @@ def run_two_player_mode():
     print(game)
 
     while game.get_winner() is None:
-        move = get_int_between("Player {}'s turn. Choose column (0 to {})".format(game.get_whose_turn(), cols - 1), 0, cols - 1)
+        move = get_int_between("Player {}'s turn. Choose column (0 to {})".format(game.get_whose_turn(), cols - 1), 0,
+                               cols - 1)
 
         if game.can_add_token_to_column(move) is True:
             game.add_token(move)
@@ -53,7 +53,7 @@ def run_two_player_mode():
     if game.get_winner() == Connect3Board.DRAW:
         print("This game has ended in a draw!")
     else:
-        print("Player {} wins!". format(game.get_winner()))
+        print("Player {} wins!".format(game.get_winner()))
 
 
 def run_ai_mode():
@@ -67,7 +67,7 @@ def run_ai_mode():
     while game.get_winner() is None:
         token = game.TOKENS[game._turn_number % 2]
         if token == player:
-            #player moves
+            # player moves
             move = get_int_between("Your turn. Choose column (0 to 2): ", 0, cols - 1)
 
             if game.can_add_token_to_column(move) is True:
@@ -75,15 +75,27 @@ def run_ai_mode():
                 print(game)
             else:
                 print("ERROR: Invalid move, please try again")
-        # else:
-        #     #AI moves
-        #     #TODO: Add AI
-        #     # print("beep boop :(")
+        else:
+            """On the computer’s turn, ask the position object for the scores of the children, and find the index of 
+            the child which has the maximum (if the computer is playing O) or minimum (if the computer is playing #). 
+            That will be the column to play for the best move. After each move selection by the computer or player, you
+             can navigate down the game tree by setting"""
+
+            position = GameTree._Position(game)
+            children_scores = position.get_children_scores()
+
+
+
+            # after move
+            # position = position.get_child(column_choice).
+
+            print("beep boop :(")
 
     if game.get_winner() == Connect3Board.DRAW:
         print("This game has ended in a draw!")
     else:
-        print("Player {} wins!". format(game.get_winner()))
+        print("Player {} wins!".format(game.get_winner()))
+
 
 def get_mode():
     mode = input("A. Two-player mode\nB. Play against AI\nQ. Quit\n>>> ")
