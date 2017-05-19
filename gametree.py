@@ -45,7 +45,15 @@ class GameTree:
                     self._children[col] = GameTree._Node(board_copy)
 
         def _compute_score(self):
-            """ Return the score of a node"""
+            """ Again, this can work recursively. In the base case, if a node represents a win for O, give it a score 
+            of +1, if a node represents a win for #, give it a score of -1, and if it represents a draw, give it a 
+            score of 0. In the recursive case, if it’s O’s turn, then give the node the maximum of the scores of its 
+            children. If it’s #’s turn, then give the node the minimum of the scores of its children"""
+            # if it's O turn
+            #   find the maximum score of the children and return it's score
+            # if it's X turn
+            #   find the minimum score of the children and return it's score
+
             return self._score
 
     class _Position:
