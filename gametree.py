@@ -37,12 +37,11 @@ class GameTree:
 
             # if self._score is None:
             #     self._compute_score()
-            if self._children is not None:
+            if self._children != [None, None, None]:
                 self._compute_score()
 
         def _create_children(self):
             """ ALL GOOD """
-            print(self._gameboard._cols)
             # changed line
             # for col in self._gameboard._cols:
             for col in range(self._gameboard._cols - 1):
@@ -51,7 +50,7 @@ class GameTree:
                 if self._gameboard.can_add_token_to_column(col):
                     board_copy.add_token(col)
                     self._children[col] = GameTree._Node(board_copy)
-                    print("AM I EVEN RUNNING?")
+
 
         def _compute_score(self):
             # if it's O turn
@@ -61,17 +60,25 @@ class GameTree:
             if self._gameboard.get_whose_turn() == GameTree.MAX_PLAYER:
                 max_score = -2
                 for child in self._children:
-                    if child._score > max_score:
-                        max_score = child.score
+                    try:
+                        if child._score is not None:
+                            if child._score > max_score:
+                                max_score = child.score
+                    except AttributeError:
+                        # add something?
+                        pass
                 self._score = max_score
 
             else:
                 min_score = 2
-                print(self._children, "whewwwwww")
                 for child in self._children:
-                    print(child, "HERE I AMMMMMM")
-                    if child._score < min_score:
-                        min_score = child.score
+                    try:
+                        if child._score is not None:
+                            if child._score < min_score:
+                                min_score = child.score
+                    except AttributeError:
+                        # add something?
+                        pass
                 self._score = min_score
 
     class _Position:

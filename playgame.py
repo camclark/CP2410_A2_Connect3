@@ -94,20 +94,22 @@ def run_ai_mode():
             children_scores = position.get_children_scores()
             move_index = None
 
-            for i, children_scores in enumerate(children_scores):
+            max_score = -2
+            min_score = 2
+
+            for i, child in enumerate(children_scores):
                 if game.get_whose_turn() == "O":
-                    max_score = -2
-                    for child in children_scores:
-                        if child > max_score:
-                            max_score = child.score
-                            move_index = i
+
+                    # for child in children_scores:
+                    if child is not None and child > max_score:
+                        max_score = child
+                        move_index = i
 
                 else:
-                    min_score = 2
-                    for child in children_scores:
-                        if child < min_score:
-                            min_score = child.score
-                            move_index = i
+                    # for child in children_scores:
+                    if child is not None and child < min_score:
+                        min_score = child
+                        move_index = i
 
             game.add_token(move_index)
 
