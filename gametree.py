@@ -36,6 +36,9 @@ class GameTree:
             elif self._gameboard.get_winner() == GameTree.MIN_WIN_SCORE:
                 self._score = GameTree.MIN_WIN_SCORE
 
+            if self._score is None:
+                self._compute_score()
+
         def _create_children(self):
             for col in self._gameboard._cols:
                 board_copy = self._gameboard.make_copy()
@@ -45,16 +48,23 @@ class GameTree:
                     self._children[col] = GameTree._Node(board_copy)
 
         def _compute_score(self):
-            """ Again, this can work recursively. In the base case, if a node represents a win for O, give it a score 
-            of +1, if a node represents a win for #, give it a score of -1, and if it represents a draw, give it a 
-            score of 0. In the recursive case, if it’s O’s turn, then give the node the maximum of the scores of its 
-            children. If it’s #’s turn, then give the node the minimum of the scores of its children"""
             # if it's O turn
             #   find the maximum score of the children and return it's score
             # if it's X turn
             #   find the minimum score of the children and return it's score
+            if self._gameboard.get_whose_turn() == GameTree.MAX_PLAYER:
+                max_score = -2
+                for child in self._children:
+                    if child._score > max_score:
+                        max_score = child.score
+                self._score = max_score
 
-            return self._score
+            else:
+                min_score = 2
+                for child in self._children:
+                    if child._score < min_score:
+                        min_score = child.score
+                self._score = min_score
 
     class _Position:
         def __init__(self, node):

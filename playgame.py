@@ -76,20 +76,35 @@ def run_ai_mode():
             else:
                 print("ERROR: Invalid move, please try again")
         else:
-            """On the computer’s turn, ask the position object for the scores of the children, and find the index of 
+            """
+            After all this, to implement your AI, you can construct your game tree, 
+            get the root node position as position = gametree.get_root_position().
+            On the computer’s turn, ask the position object for the scores of the children, and find the index of 
             the child which has the maximum (if the computer is playing O) or minimum (if the computer is playing #). 
             That will be the column to play for the best move. After each move selection by the computer or player, you
              can navigate down the game tree by setting"""
 
+            # postion = GameTree.get_root_position()
             position = GameTree._Position(game)
             children_scores = position.get_children_scores()
+            move_index = None
 
+            for i, children_scores in enumerate(children_scores):
+                if game.get_whose_turn() == "O":
+                    max_score = -2
+                    for child in children_scores:
+                        if child > max_score:
+                            max_score = child.score
+                            move_index = i
 
+                else:
+                    min_score = 2
+                    for child in children_scores:
+                        if child < min_score:
+                            min_score = child.score
+                            move_index = i
 
-            # after move
-            # position = position.get_child(column_choice).
-
-            print("beep boop :(")
+            game.add_token(move_index)
 
     if game.get_winner() == Connect3Board.DRAW:
         print("This game has ended in a draw!")

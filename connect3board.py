@@ -24,6 +24,7 @@ class Connect3Board:
         if board is None:
             self._make_board()
 
+
     def get_columns(self):
         """ Returns the number of columns in the board """
         return self._cols
