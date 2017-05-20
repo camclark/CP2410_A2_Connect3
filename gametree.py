@@ -27,8 +27,7 @@ class GameTree:
             self._depth_limit = self._gameboard.get_columns() * self._gameboard.get_rows()
 
             if self._gameboard.get_winner() is None:
-                # is this right?
-                GameTree._Node._children = GameTree._Node._children._create_children()
+                self._create_children()
             elif self._gameboard.get_winner() == gameboard.DRAW:
                 self._score = GameTree.DRAW_SCORE
             elif self._gameboard.get_winner() == GameTree.MAX_PLAYER:
@@ -36,16 +35,23 @@ class GameTree:
             elif self._gameboard.get_winner() == GameTree.MIN_WIN_SCORE:
                 self._score = GameTree.MIN_WIN_SCORE
 
-            if self._score is None:
+            # if self._score is None:
+            #     self._compute_score()
+            if self._children is not None:
                 self._compute_score()
 
         def _create_children(self):
-            for col in self._gameboard._cols:
+            """ ALL GOOD """
+            print(self._gameboard._cols)
+            # changed line
+            # for col in self._gameboard._cols:
+            for col in range(self._gameboard._cols - 1):
                 board_copy = self._gameboard.make_copy()
 
                 if self._gameboard.can_add_token_to_column(col):
                     board_copy.add_token(col)
                     self._children[col] = GameTree._Node(board_copy)
+                    print("AM I EVEN RUNNING?")
 
         def _compute_score(self):
             # if it's O turn
@@ -61,7 +67,9 @@ class GameTree:
 
             else:
                 min_score = 2
+                print(self._children, "whewwwwww")
                 for child in self._children:
+                    print(child, "HERE I AMMMMMM")
                     if child._score < min_score:
                         min_score = child.score
                 self._score = min_score

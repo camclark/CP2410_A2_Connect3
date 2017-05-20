@@ -30,6 +30,7 @@ def get_int_between(prompt, low, high):
             else:
                 print("Value must be between {} and {} inclusive".format(low, high))
         except ValueError:
+            print("Value must be between {} and {} inclusive".format(low, high))
             pass
 
 
@@ -84,8 +85,12 @@ def run_ai_mode():
             That will be the column to play for the best move. After each move selection by the computer or player, you
              can navigate down the game tree by setting"""
 
+            game_tree = GameTree(game)
+            position = game_tree.get_root_position()
+
             # postion = GameTree.get_root_position()
-            position = GameTree._Position(game)
+            # position = GameTree._Position(GameTree)
+
             children_scores = position.get_children_scores()
             move_index = None
 
