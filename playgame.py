@@ -27,6 +27,7 @@ def get_int_between(prompt, low, high):
             num = int(input(prompt))
             if low <= num <= high:
                 return num
+
             else:
                 print("Value must be between {} and {} inclusive".format(low, high))
         except ValueError:
@@ -71,7 +72,6 @@ def run_ai_mode():
     while game.get_winner() is None:
         token = game.TOKENS[game._turn_number % 2]
         if token == player:
-            # player moves
             move = get_int_between("Your turn. Choose column (0 to 2): ", 0, cols - 1)
 
             if game.can_add_token_to_column(move) is True:
@@ -81,19 +81,6 @@ def run_ai_mode():
             else:
                 print("ERROR: Invalid move, please try again")
         else:
-            """
-            After all this, to implement your AI, you can construct your game tree, 
-            get the root node position as position = gametree.get_root_position().
-            On the computer’s turn, ask the position object for the scores of the children, and find the index of 
-            the child which has the maximum (if the computer is playing O) or minimum (if the computer is playing #). 
-            That will be the column to play for the best move. After each move selection by the computer or player, you
-             can navigate down the game tree by setting"""
-
-
-
-            # postion = GameTree.get_root_position()
-            # position = GameTree._Position(GameTree)
-
             children_scores = position.get_children_scores()
             move_index = None
 
@@ -102,14 +89,10 @@ def run_ai_mode():
 
             for i, child in enumerate(children_scores):
                 if game.get_whose_turn() == "O":
-
-                    # for child in children_scores:
                     if child is not None and child > max_score:
                         max_score = child
                         move_index = i
-
                 else:
-                    # for child in children_scores:
                     if child is not None and child < min_score:
                         min_score = child
                         move_index = i

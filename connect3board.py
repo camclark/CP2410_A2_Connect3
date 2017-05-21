@@ -24,7 +24,6 @@ class Connect3Board:
         if board is None:
             self._make_board()
 
-
     def get_columns(self):
         """ Returns the number of columns in the board """
         return self._cols
@@ -47,33 +46,27 @@ class Connect3Board:
 
         # Check rows for winner
         for row in range(self._rows):
-            for col in range(self._cols):
-                if col + 2 < self._cols and self._board[row][col] is not None:
-                    if self._board[row][col] == self._board[row][col + 1] == self._board[row][col + 2]:
-                        return self._board[row][col]
+            for col in range(self._cols - 2):
+                if self._board[row][col] is not None and (self._board[row][col] == self._board[row][col + 1] == self._board[row][col + 2]):
+                    return self._board[row][col]
 
         # Check columns for winner
         for col in range(self._cols):
-            for row in range(self._rows):
-                if row + 2 < self._rows and self._board[row][col] is not None:
-                    if self._board[row][col] == self._board[row + 1][col] == self._board[row + 2][col]:
+            for row in range(self._rows - 2):
+                if self._board[row][col] is not None and (self._board[row][col] == self._board[row + 1][col] == self._board[row + 2][col]):
+                    return self._board[row][col]
+
+        # Check diagonal for winner (from top left)
+        for row in range(self._rows - 2):
+            for col in range(self._cols - 2):
+                if self._board[row][col] is not None and (self._board[row][col] == self._board[row + 1][col + 1] == self._board[row + 2][col + 2]):
+                    return self._board[row][col]
+
+        # Check diagonal for winner (from bottom left)
+        for row in range(self._rows - 2):
+            for col in range(2, self._cols):
+                if self._board[row][col] is not None and (self._board[row][col] == self._board[row + 1][col - 1] == self._board[row + 2][col - 2]):
                         return self._board[row][col]
-
-        # Check diagonal for winner (top-left to bottom-right)
-        for row in range(self._rows):
-            for col in range(self._cols):
-                if row + 2 < self._rows and col + 2 < self._cols:
-                    if self._board[row][col] is not None:
-                        if self._board[row][col] == self._board[row + 1][col + 1] == self._board[row + 2][col + 2]:
-                            return self._board[row][col]
-
-        # Check diagonal for winner (top left to bottom left)
-        for row in range(self._rows):
-            for col in range(self._cols):
-                if row - 2 < self._rows and col + 2 < self._cols:
-                    if self._board[row][col] is not None:
-                        if self._board[row][col] == self._board[row - 1][col + 1] == self._board[row - 2][col + 2]:
-                            return self._board[row][col]
 
         # no winner discovered, so check for draw or otherwise return None
         if self._turn_number >= self._rows * self._cols:

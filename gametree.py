@@ -23,22 +23,18 @@ class GameTree:
         def __init__(self, gameboard: Connect3Board):
             self._gameboard = gameboard
             self._children = [None] * self._gameboard.get_columns()
-            # Where to put check for depth limit?
             self._depth_limit = self._gameboard.get_columns() * self._gameboard.get_rows()
 
             if self._gameboard.get_winner() is None:
                 self._create_children()
+                self._compute_score()
+
             elif self._gameboard.get_winner() == gameboard.DRAW:
                 self._score = GameTree.DRAW_SCORE
             elif self._gameboard.get_winner() == GameTree.MAX_PLAYER:
                 self._score = GameTree.MAX_WIN_SCORE
             elif self._gameboard.get_winner() == GameTree.MIN_PLAYER:
                 self._score = GameTree.MIN_WIN_SCORE
-
-            # if self._score is None:
-            #     self._compute_score()
-            if self._children != [None] * self._gameboard.get_columns():
-                self._compute_score()
 
         def _create_children(self):
             """ ALL GOOD """
