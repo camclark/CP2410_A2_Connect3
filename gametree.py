@@ -32,53 +32,39 @@ class GameTree:
                 self._score = GameTree.DRAW_SCORE
             elif self._gameboard.get_winner() == GameTree.MAX_PLAYER:
                 self._score = GameTree.MAX_WIN_SCORE
-            elif self._gameboard.get_winner() == GameTree.MIN_WIN_SCORE:
+            elif self._gameboard.get_winner() == GameTree.MIN_PLAYER:
                 self._score = GameTree.MIN_WIN_SCORE
 
             # if self._score is None:
             #     self._compute_score()
-            if self._children != [None, None, None]:
+            if self._children != [None] * self._gameboard.get_columns():
                 self._compute_score()
 
         def _create_children(self):
             """ ALL GOOD """
             # changed line
             # for col in self._gameboard._cols:
-            for col in range(self._gameboard._cols - 1):
+            for col in range(self._gameboard.get_columns()):
                 board_copy = self._gameboard.make_copy()
 
                 if self._gameboard.can_add_token_to_column(col):
                     board_copy.add_token(col)
                     self._children[col] = GameTree._Node(board_copy)
 
-
         def _compute_score(self):
-            # if it's O turn
-            #   find the maximum score of the children and return it's score
-            # if it's X turn
-            #   find the minimum score of the children and return it's score
             if self._gameboard.get_whose_turn() == GameTree.MAX_PLAYER:
                 max_score = -2
                 for child in self._children:
-                    try:
-                        if child._score is not None:
-                            if child._score > max_score:
-                                max_score = child.score
-                    except AttributeError:
-                        # add something?
-                        pass
+                    if child is not None:
+                        if child._score > max_score:
+                            max_score = child._score
                 self._score = max_score
-
             else:
                 min_score = 2
                 for child in self._children:
-                    try:
-                        if child._score is not None:
-                            if child._score < min_score:
-                                min_score = child.score
-                    except AttributeError:
-                        # add something?
-                        pass
+                    if child is not None:
+                        if child._score < min_score:
+                            min_score = child._score
                 self._score = min_score
 
     class _Position:

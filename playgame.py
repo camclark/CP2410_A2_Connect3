@@ -65,6 +65,9 @@ def run_ai_mode():
     game = Connect3Board(cols, rows)
     print(game)
 
+    game_tree = GameTree(game)
+    position = game_tree.get_root_position()
+
     while game.get_winner() is None:
         token = game.TOKENS[game._turn_number % 2]
         if token == player:
@@ -73,6 +76,7 @@ def run_ai_mode():
 
             if game.can_add_token_to_column(move) is True:
                 game.add_token(move)
+                position = position.get_child(move)
                 print(game)
             else:
                 print("ERROR: Invalid move, please try again")
@@ -85,8 +89,7 @@ def run_ai_mode():
             That will be the column to play for the best move. After each move selection by the computer or player, you
              can navigate down the game tree by setting"""
 
-            game_tree = GameTree(game)
-            position = game_tree.get_root_position()
+
 
             # postion = GameTree.get_root_position()
             # position = GameTree._Position(GameTree)
@@ -112,6 +115,10 @@ def run_ai_mode():
                         move_index = i
 
             game.add_token(move_index)
+            position = position.get_child(move_index)
+
+            print("AI's turn")
+            print(game)
 
     if game.get_winner() == Connect3Board.DRAW:
         print("This game has ended in a draw!")
