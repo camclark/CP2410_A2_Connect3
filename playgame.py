@@ -27,17 +27,14 @@ def get_int_between(prompt, low, high):
             num = int(input(prompt))
             if low <= num <= high:
                 return num
-
             else:
-                print("Value must be between {} and {} inclusive".format(low, high))
+                print("Value must be between {} and {} inclusive: ".format(low, high))
         except ValueError:
-            print("Value must be between {} and {} inclusive".format(low, high))
-            pass
-
+            print("Value must be between {} and {} inclusive: ".format(low, high))
 
 def run_two_player_mode():
-    cols = get_int_between("Please select number of columns (Min: 3  Max:7)", 3, 7)
-    rows = get_int_between("Please select number of rows (Min: 3  Max:7)", 3, 7)
+    cols = get_int_between("Please select number of columns (Min: 3  Max:7): ", 3, 7)
+    rows = get_int_between("Please select number of rows (Min: 3  Max:7): ", 3, 7)
 
     game = Connect3Board(cols, rows)
     print(game)
@@ -70,8 +67,7 @@ def run_ai_mode():
     position = game_tree.get_root_position()
 
     while game.get_winner() is None:
-        token = game.TOKENS[game._turn_number % 2]
-        if token == player:
+        if game.get_whose_turn() == player:
             move = get_int_between("Your turn. Choose column (0 to 2): ", 0, cols - 1)
 
             if game.can_add_token_to_column(move) is True:
@@ -82,23 +78,22 @@ def run_ai_mode():
                 print("ERROR: Invalid move, please try again")
         else:
             children_scores = position.get_children_scores()
-            move_index = None
-
+            child_index = None
             max_score = -2
             min_score = 2
 
             for i, child in enumerate(children_scores):
-                if game.get_whose_turn() == "O":
+                if game.get_whose_turn() == game.TOKENS[0]:
                     if child is not None and child > max_score:
                         max_score = child
-                        move_index = i
+                        child_index = i
                 else:
                     if child is not None and child < min_score:
                         min_score = child
-                        move_index = i
+                        child_index = i
 
-            game.add_token(move_index)
-            position = position.get_child(move_index)
+            game.add_token(child_index)
+            position = position.get_child(child_index)
 
             print("AI's turn")
             print(game)
@@ -126,18 +121,6 @@ def piece_selection():
         else:
             print("ERROR: Please enter O or #")
     return result
-
-
-# def get_int(prompt):
-#     result = 0
-#     finished = False
-#     while not finished:
-#         try:
-#             result = int(input(prompt))
-#             finished = True
-#         except ValueError:
-#             print("Please enter a valid integer.")
-#     return result
 
 
 if __name__ == '__main__':

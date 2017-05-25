@@ -17,18 +17,15 @@ class GameTree:
     DRAW_SCORE = 0
 
     class _Node:
-        __slots__ = '_gameboard', '_children', '_score', '_depth_limit'
-        # depth limit in slots?
+        __slots__ = '_gameboard', '_children', '_score'
 
         def __init__(self, gameboard: Connect3Board):
             self._gameboard = gameboard
             self._children = [None] * self._gameboard.get_columns()
-            self._depth_limit = self._gameboard.get_columns() * self._gameboard.get_rows()
 
             if self._gameboard.get_winner() is None:
                 self._create_children()
                 self._compute_score()
-
             elif self._gameboard.get_winner() == gameboard.DRAW:
                 self._score = GameTree.DRAW_SCORE
             elif self._gameboard.get_winner() == GameTree.MAX_PLAYER:
@@ -37,13 +34,9 @@ class GameTree:
                 self._score = GameTree.MIN_WIN_SCORE
 
         def _create_children(self):
-            """ ALL GOOD """
-            # changed line
-            # for col in self._gameboard._cols:
             for col in range(self._gameboard.get_columns()):
-                board_copy = self._gameboard.make_copy()
-
                 if self._gameboard.can_add_token_to_column(col):
+                    board_copy = self._gameboard.make_copy()
                     board_copy.add_token(col)
                     self._children[col] = GameTree._Node(board_copy)
 
@@ -51,16 +44,16 @@ class GameTree:
             if self._gameboard.get_whose_turn() == GameTree.MAX_PLAYER:
                 max_score = -2
                 for child in self._children:
-                    if child is not None:
-                        if child._score > max_score:
-                            max_score = child._score
+                    if child is not None and child._score > max_score:
+                        max_score = child._score
                 self._score = max_score
             else:
                 min_score = 2
                 for child in self._children:
-                    if child is not None:
-                        if child._score < min_score:
-                            min_score = child._score
+                    if child is not None and child._score < min_score:
+
+
+                        min_score = child._score
                 self._score = min_score
 
     class _Position:
