@@ -22,6 +22,7 @@ def main():
 
 
 def get_int_between(prompt, low, high):
+    """ Get from ints between specified number, includes prompts """
     while True:
         try:
             num = int(input(prompt))
@@ -33,6 +34,7 @@ def get_int_between(prompt, low, high):
             print("Value must be between {} and {} inclusive: ".format(low, high))
 
 def run_two_player_mode():
+    """ Runs two player Connect three on variable length board """
     cols = get_int_between("Please select number of columns (Min: 3  Max:7): ", 3, 7)
     rows = get_int_between("Please select number of rows (Min: 3  Max:7): ", 3, 7)
 
@@ -56,6 +58,7 @@ def run_two_player_mode():
 
 
 def run_ai_mode():
+    """ Run Connect 3 against AI on a 3x3 board """
     player = piece_selection()
 
     cols = 3

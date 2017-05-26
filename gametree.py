@@ -34,6 +34,7 @@ class GameTree:
                 self._score = GameTree.MIN_WIN_SCORE
 
         def _create_children(self):
+            """ Create a child for each column """
             for col in range(self._gameboard.get_columns()):
                 if self._gameboard.can_add_token_to_column(col):
                     board_copy = self._gameboard.make_copy()
@@ -41,6 +42,7 @@ class GameTree:
                     self._children[col] = GameTree._Node(board_copy)
 
         def _compute_score(self):
+            """ Assign score from the max or min of children scores depending on which token """
             if self._gameboard.get_whose_turn() == GameTree.MAX_PLAYER:
                 max_score = -2
                 for child in self._children:
