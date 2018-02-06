@@ -53,8 +53,6 @@ class GameTree:
                 min_score = 2
                 for child in self._children:
                     if child is not None and child._score < min_score:
-
-
                         min_score = child._score
                 self._score = min_score
 

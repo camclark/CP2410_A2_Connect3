@@ -33,12 +33,20 @@ def get_int_between(prompt, low, high):
         except ValueError:
             print("Value must be between {} and {} inclusive: ".format(low, high))
 
+
 def run_two_player_mode():
     """ Runs two player Connect three on variable length board """
-    cols = get_int_between("Please select number of columns (Min: 3  Max:7): ", 3, 7)
-    rows = get_int_between("Please select number of rows (Min: 3  Max:7): ", 3, 7)
+    MIN_ROWS = 3
+    MAX_ROWS = 7
+    MIN_COLS = 3
+    MAX_COLS = 7
 
-    game = Connect3Board(cols, rows)
+    rows = get_int_between("Please select number of rows (Min: {}  Max: {}): ".format(MIN_ROWS, MAX_ROWS), MIN_ROWS,
+                           MAX_ROWS)
+    cols = get_int_between("Please select number of columns (Min: {}  Max: {}): ".format(MIN_COLS, MAX_COLS), MIN_COLS,
+                           MAX_COLS)
+
+    game = Connect3Board(rows, cols)
     print(game)
 
     while game.get_winner() is None:
@@ -61,9 +69,10 @@ def run_ai_mode():
     """ Run Connect 3 against AI on a 3x3 board """
     player = piece_selection()
 
-    cols = 3
     rows = 3
-    game = Connect3Board(cols, rows)
+    cols = 3
+
+    game = Connect3Board(rows, cols)
     print(game)
 
     game_tree = GameTree(game)
@@ -71,7 +80,7 @@ def run_ai_mode():
 
     while game.get_winner() is None:
         if game.get_whose_turn() == player:
-            move = get_int_between("Your turn. Choose column (0 to 2): ", 0, cols - 1)
+            move = get_int_between("Your turn. Choose column (0 to {}): ".format(cols - 1), 0, cols - 1)
 
             if game.can_add_token_to_column(move) is True:
                 game.add_token(move)
